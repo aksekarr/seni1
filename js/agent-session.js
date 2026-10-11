@@ -19,7 +19,7 @@ function isBusyError(error, context) {
 
 function errorDetails(error, context) {
   let message;
-  if (error?.name === 'NotAllowedError') message = 'Microphone access was denied. Allow it in your browser, then try again.';
+  if (error?.name === 'NotAllowedError') message = 'Microphone access is blocked. Allow microphone access in your browser and system settings, then try again.';
   else if (error?.name === 'NotFoundError' || error?.name === 'NotReadableError') message = 'Your microphone is unavailable. Check it, then try again.';
   else if (isBusyError(error, context)) return { message: BUSY_MESSAGE, kind: 'busy' };
   else if (error?.code === 'TIMEOUT') message = 'The connection took too long. Please try again.';
