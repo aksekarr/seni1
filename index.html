@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#04060c">
+  <meta name="description" content="Meet Seni, a voice and a cloud of light.">
+  <title>Seni · A presence in the light</title>
+  <link rel="stylesheet" href="./css/landing.css?v=20261011-creator-reading">
+  <script type="importmap">
+{
+  "imports": {
+    "three": "./js/vendor/three.module.js",
+    "three/addons/": "./js/vendor/addons/",
+    "./js/agent-config.js": "./js/agent-config.js?v=20261011-pages-release",
+    "./js/agent-session.js": "./js/agent-session.js?v=20261011-busy-explore",
+    "./js/facemap.js": "./js/facemap.js?v=20261010-recovery",
+    "./js/face.js": "./js/face.js?v=20261011-interface",
+    "./js/face-expressions.js": "./js/face-expressions.js?v=20261011-spatial-accents",
+    "./js/face-form.js": "./js/face-form.js?v=20261011-spatial-accents",
+    "./js/flanger.js": "./js/flanger.js?v=20261010-recovery",
+    "./js/frame-loop.js": "./js/frame-loop.js?v=20261010-recovery",
+    "./js/landing-interface.js": "./js/landing-interface.js?v=20261011-creator-copy",
+    "./js/landing-flow.js": "./js/landing-flow.js?v=20261011-busy-explore",
+    "./js/scene-attention.js": "./js/scene-attention.js?v=20261011-interface",
+    "./js/load-deadline.js": "./js/load-deadline.js?v=20261010-recovery",
+    "./js/stage.js": "./js/stage.js?v=20261011-interface",
+    "./js/voice.js": "./js/voice.js?v=20261010-recovery"
+  }
+}
+  </script>
+  <script type="module" src="./js/landing.js?v=20261011-creator-clearance"></script>
+</head>
+<body data-phase="booting">
+  <canvas id="stage" aria-label="A living nebula of light, becoming Seni's face"></canvas>
+  <header class="masthead">
+    <div class="wordmark" aria-label="Seni">
+      <svg class="brand-symbol" viewBox="0 0 32 32" aria-hidden="true"><path d="M16 2C16 12 12 16 2 16c10 0 14 4 14 14 0-10 4-14 14-14C20 16 16 12 16 2Z"/><circle cx="16" cy="16" r="12"/></svg>
+      <span>SENI</span>
+    </div>
+    <button class="creator-link" id="creator-toggle" type="button" aria-expanded="false" aria-controls="creator-scene" disabled>
+      Created by Avi <span aria-hidden="true">↗</span>
+    </button>
+  </header>
+  <main class="experience" aria-label="Meet Seni">
+    <h1 class="sr-only">Meet Seni</h1>
+    <div class="arrival" id="arrival">
+      <button class="meet-button" id="meet" type="button" disabled>
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h15m-5-5 5 5-5 5"/></svg>
+        <span id="meet-label">Meet Seni</span>
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 12H5m5-5-5 5 5 5"/></svg>
+      </button>
+      <p class="entry-hint" id="entry-hint">Preparing Seni…</p>
+      <p class="entry-error" id="entry-error" role="alert" hidden></p>
+    </div>
+  </main>
+  <section class="creator-scene" id="creator-scene" aria-labelledby="creator-title" hidden>
+    <button class="creator-close" id="creator-close" type="button" aria-label="Close about Avi">
+      <svg viewBox="0 0 20 20" aria-hidden="true"><path d="m5 5 10 10M15 5 5 15"/></svg>
+    </button>
+    <p class="creator-kicker" data-reveal>The person behind Seni</p>
+    <h2 id="creator-title" tabindex="-1" data-reveal>Created by Avi.</h2>
+    <p data-reveal>I made Seni with the AIs of science fiction in mind: distinctive presences with character in how they move, speak and respond.</p>
+    <p data-reveal>AI can already convey personality in conversation. I wanted to explore how that personality could take shape on screen, through light, movement and expression.</p>
+    <p data-reveal>I imagine AI becoming woven into our everyday devices and the physical world. If mine came with a digital body, I’d want it to look something like Seni.</p>
+    <nav class="creator-links" aria-label="Find Avi">
+      <a href="https://www.linkedin.com/in/avi-ravisekara-99123784" target="_blank" rel="noopener noreferrer">LinkedIn <span aria-hidden="true">↗</span></a>
+      <a href="mailto:avi.sekarr@outlook.com">Email <span aria-hidden="true">↗</span></a>
+      <a href="https://github.com/aksekarr" target="_blank" rel="noopener noreferrer">GitHub <span aria-hidden="true">↗</span></a>
+    </nav>
+  </section>
+  <footer class="experience-footer" id="experience-footer">
+    <div class="presence" id="presence" hidden>
+      <span class="presence-line" aria-hidden="true"></span>
+      <p id="presence-title">Seni is here</p>
+      <p class="presence-note" id="presence-note">Live conversation is coming soon</p>
+      <div class="form-recovery" id="form-recovery" hidden>
+        <p class="form-error" id="form-error" role="alert" hidden></p>
+        <button class="quiet-button busy-explore" id="busy-explore" type="button" aria-controls="explore-menu" hidden>Explore while you wait</button>
+      </div>
+    </div>
+    <section class="voice-privacy" id="voice-privacy" aria-label="Voice privacy" hidden>
+      <p class="voice-disclosure" id="voice-disclosure">Seni is AI. ElevenLabs and its service providers, including OpenAI, process your voice and conversation. Call audio saving is off. ElevenLabs transcripts are scheduled for deletion.</p>
+      <details id="voice-privacy-details">
+        <summary id="voice-privacy-toggle">Voice privacy</summary>
+        <div class="voice-privacy-content" id="voice-privacy-content">
+          <p>Seni is an AI voice experience created by Avi Ravisekara. To respond, your microphone audio is sent to ElevenLabs, transcribed, and processed with its service providers, including OpenAI, to generate the conversation.</p>
+          <p>Call audio saving is off. For new conversations, ElevenLabs transcripts and associated personal data have a zero-day retention period and are scheduled for deletion after the call. Deletion may not happen immediately.</p>
+          <p>You can mute your microphone or end the conversation using the controls below.</p>
+          <p>For questions about this demo or your data, contact Avi Ravisekara at <a href="mailto:avi.sekarr@outlook.com">avi.sekarr@outlook.com</a>.</p>
+          <p>Read the <a href="https://elevenlabs.io/privacy-policy" target="_blank" rel="noopener noreferrer">ElevenLabs privacy policy</a> and <a href="https://openai.com/enterprise-privacy/" target="_blank" rel="noopener noreferrer">OpenAI API data privacy</a> for more about the providers’ practices.</p>
+        </div>
+      </details>
+    </section>
+    <div class="control-row">
+      <div class="voice-controls" role="group" aria-label="Conversation controls">
+      <button class="quiet-button" id="replay" type="button" aria-label="Replay introduction" hidden>
+        <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M4 7a6 6 0 1 1 0 6M4 3v4h4"/></svg>
+        <span class="control-full">Replay introduction</span><span class="control-short" aria-hidden="true">Replay</span>
+      </button>
+      <button class="quiet-button talk-button" id="talk" type="button" hidden>
+        <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M4 8v4m4-7v10m4-12v14m4-9v4"/></svg>
+        Talk to Seni
+      </button>
+      <button class="quiet-button" id="back-face" type="button" hidden>
+        <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M8 4 2 10l6 6M2 10h16"/></svg>
+        Back to Seni
+      </button>
+      <button class="quiet-button mic-button" id="mic" type="button" aria-pressed="false" aria-label="Mute microphone" hidden>
+        <svg viewBox="0 0 20 20" aria-hidden="true"><rect x="7" y="2" width="6" height="10" rx="3"/><path d="M4 9a6 6 0 0 0 12 0m-6 6v3m-3 0h6"/><path class="mic-cross" d="m3 3 14 14"/></svg>
+        <span id="mic-label">Mic on</span>
+      </button>
+      <button class="quiet-button sound-button" id="sound" type="button" aria-pressed="false" aria-label="Mute sound" disabled>
+        <svg viewBox="0 0 20 20" aria-hidden="true"><path d="m8 4-4 4H1v4h3l4 4V4Z"/><g class="sound-waves"><path d="M11 7a5 5 0 0 1 0 6m3-9a9 9 0 0 1 0 12"/></g><path class="sound-cross" d="m12 7 6 6m0-6-6 6"/></svg>
+        <span id="sound-label">Sound on</span>
+      </button>
+      <button class="quiet-button" id="end-conversation" type="button" aria-label="End conversation" hidden>
+        <svg viewBox="0 0 20 20" aria-hidden="true"><rect x="5" y="5" width="10" height="10" rx="1"/></svg>
+        <span class="control-full">End conversation</span><span class="control-short" aria-hidden="true">End</span>
+      </button>
+      </div>
+      <details class="explore-menu" id="explore-menu" hidden>
+        <summary class="explore-toggle" id="explore-toggle">
+          <svg viewBox="0 0 20 20" aria-hidden="true"><path d="m10 2 2 6 6 2-6 2-2 6-2-6-6-2 6-2Z"/></svg>
+          Explore
+        </summary>
+        <div class="explore-options" role="group" aria-label="Explore Seni's forms">
+      <button class="quiet-button surprise-button" id="surprise" type="button" hidden>
+        <svg viewBox="0 0 20 20" aria-hidden="true"><path d="m10 2 2 6 6 2-6 2-2 6-2-6-6-2 6-2Z"/></svg>
+        Surprise me
+      </button>
+      <button class="quiet-button" id="return" type="button" aria-label="Return to nebula" hidden>
+        <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M7 5 2 10l5 5M3 10h9a5 5 0 0 0 0-10" transform="translate(0 3) scale(.85)"/></svg>
+        <span class="control-full">Return to nebula</span><span class="control-short" aria-hidden="true">Return</span>
+      </button>
+        </div>
+      </details>
+    </div>
+    <p class="sr-only" id="status" role="status" aria-live="polite">Preparing Seni.</p>
+  </footer>
+  <noscript><p class="no-script">Seni needs JavaScript to bring her particles to life.</p></noscript>
+</body>
+</html>
