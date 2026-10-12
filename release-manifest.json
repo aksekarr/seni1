@@ -1,6 +1,7 @@
 {
   "files": {
     ".nojekyll": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "README.md": "b20cf9cbd9f185d352a9fe2d73e1166bca134cd5596e4c1c13f074a9dd4f8a43",
     "api/agent-config.json": "defd9e64a87152ee684dd5708b5f78e6053a62902e06fd75e5d8e8bee09f6d3d",
     "assets/face/face-colour.png": "ba0711edc845914bbf1f9fd98808188ca00e0390981ed0b8a6aa0a34a2bd9e9b",
     "assets/face/face-depth.png": "d9c474a4bf3fda976f80c665b491eed7aa6262477fad96162645726602cb9ca6",
