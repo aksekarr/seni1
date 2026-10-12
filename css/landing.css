@@ -217,11 +217,14 @@ body[data-phase="speaking"] .presence-line::after { box-shadow:0 0 16px rgb(195 
 .reveal-chunk { opacity:0; white-space:pre-wrap; }
 body[data-creator="open"] .reveal-chunk { animation:writing-arrive .45s cubic-bezier(.4,0,.2,1) var(--reveal-delay) both; }
 .creator-links { display:flex; flex-wrap:wrap; gap:22px; margin-top:30px; opacity:0; }
-.creator-links a { position:relative; color:#d6c5e7; text-decoration:none; padding:10px 0; font:11px var(--mono); }
-.creator-links a::after { content:''; position:absolute; height:1px; left:0; right:13px; bottom:4px; background:#9e8aaf;
+.creator-links :is(a, button) { position:relative; color:#d6c5e7; text-decoration:none; padding:10px 0; font:11px var(--mono); }
+.creator-links :is(a, button)::after { content:''; position:absolute; height:1px; left:0; right:13px; bottom:4px; background:#9e8aaf;
   opacity:.4; transform-origin:left; transition:opacity .2s, transform .2s; }
-.creator-links a:hover::after { opacity:1; transform:scaleX(.75); }
-.creator-links a span { margin-left:6px; color:#a693b8; }
+.creator-links :is(a, button):hover::after { opacity:1; transform:scaleX(.75); }
+.creator-links :is(a, button) span { margin-left:6px; color:#a693b8; }
+.creator-links button { border:0; background:none; }
+.creator-scene .creator-email-status { margin:0; color:#d6c5e7; font:11px/1.6 var(--mono); overflow-wrap:anywhere; }
+.creator-email-status:not(:empty) { padding-top:6px; }
 body[data-creator="open"] .creator-links { animation:writing-arrive .45s cubic-bezier(.4,0,.2,1) var(--links-delay) both; }
 body[data-creator="closing"] .creator-scene { opacity:0; transition:opacity .2s; }
 body[data-creator="open"] .presence, body[data-creator="open"] .arrival { opacity:0; visibility:hidden; pointer-events:none; }
@@ -238,7 +241,7 @@ body[data-creator="open"]:has(#voice-privacy:not([hidden])) .experience-footer {
   .creator-scene .creator-kicker { margin-bottom:14px; }
   .creator-scene p { font-size:14px; line-height:1.65; margin-bottom:14px; }
   .creator-links { margin-top:14px; gap:24px; }
-  .creator-links a { padding-block:15px; }
+  .creator-links :is(a, button) { padding-block:15px; }
   .creator-scene::before { inset:-20px -35px; background:linear-gradient(transparent,rgb(4 6 12 / 78%) 12%,rgb(4 6 12 / 78%) 85%,transparent); }
 }
 @media (max-width:620px) {

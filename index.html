@@ -6,7 +6,7 @@
   <meta name="theme-color" content="#04060c">
   <meta name="description" content="Meet Seni, a voice and a cloud of light.">
   <title>Seni · A presence in the light</title>
-  <link rel="stylesheet" href="./css/landing.css?v=20261011-creator-reading">
+  <link rel="stylesheet" href="./css/landing.css?v=20261012-copy-email">
   <script type="importmap">
 {
   "imports": {
@@ -20,7 +20,7 @@
     "./js/face-form.js": "./js/face-form.js?v=20261011-spatial-accents",
     "./js/flanger.js": "./js/flanger.js?v=20261010-recovery",
     "./js/frame-loop.js": "./js/frame-loop.js?v=20261010-recovery",
-    "./js/landing-interface.js": "./js/landing-interface.js?v=20261011-creator-copy",
+    "./js/landing-interface.js": "./js/landing-interface.js?v=20261012-copy-email",
     "./js/landing-flow.js": "./js/landing-flow.js?v=20261011-busy-explore",
     "./js/scene-attention.js": "./js/scene-attention.js?v=20261011-interface",
     "./js/load-deadline.js": "./js/load-deadline.js?v=20261010-recovery",
@@ -65,9 +65,10 @@
     <p data-reveal>I imagine AI becoming woven into our everyday devices and the physical world. If mine came with a digital body, I’d want it to look something like Seni.</p>
     <nav class="creator-links" aria-label="Find Avi">
       <a href="https://www.linkedin.com/in/avi-ravisekara-99123784" target="_blank" rel="noopener noreferrer">LinkedIn <span aria-hidden="true">↗</span></a>
-      <a href="mailto:avi.sekarr@outlook.com">Email <span aria-hidden="true">↗</span></a>
+      <button id="creator-email" type="button" data-email="avi.sekarr@outlook.com" aria-label="Copy email address" aria-describedby="creator-email-status">Email <span aria-hidden="true">↗</span></button>
       <a href="https://github.com/aksekarr" target="_blank" rel="noopener noreferrer">GitHub <span aria-hidden="true">↗</span></a>
     </nav>
+    <p class="creator-email-status" id="creator-email-status" role="status" aria-atomic="true"></p>
   </section>
   <footer class="experience-footer" id="experience-footer">
     <div class="presence" id="presence" hidden>

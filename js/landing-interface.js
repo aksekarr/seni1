@@ -4,9 +4,10 @@ export function createLandingInterface({ flow, face, reduce = false, host = wind
   const byId = id => doc.getElementById(id);
   const toggle = byId('creator-toggle'), region = byId('creator-scene');
   const title = byId('creator-title'), closeButton = byId('creator-close');
+  const emailButton = byId('creator-email'), emailStatus = byId('creator-email-status');
   const arrival = byId('arrival'), explore = byId('explore-menu');
   let open = false, fromArrival = false, timer = null, progress = 0, velocity = 0;
-  let disposed = false;
+  let disposed = false, copying = false, copyAttempt = 0;
   const framing = { x: 0, y: 0, zoom: 1 };
   const point = { x: 0, y: 0 };
   let chunk = 0;
@@ -27,7 +28,39 @@ export function createLandingInterface({ flow, face, reduce = false, host = wind
   }
   region.style.setProperty('--links-delay', `${chunk * 100}ms`);
 
+  function resetEmailCopy() {
+    copyAttempt++;
+    copying = false;
+    emailStatus.textContent = '';
+    emailButton.removeAttribute('aria-busy');
+  }
+  function showEmailStatus(message) {
+    emailStatus.textContent = message;
+    emailStatus.scrollIntoView?.({ block: 'nearest' });
+  }
+  async function copyEmail() {
+    if (disposed || !open || copying) return;
+    const attempt = ++copyAttempt, address = emailButton.dataset.email;
+    copying = true;
+    emailStatus.textContent = '';
+    emailButton.setAttribute('aria-busy', 'true');
+    try {
+      const clipboard = host.navigator?.clipboard;
+      if (typeof clipboard?.writeText !== 'function') throw new Error('Clipboard unavailable');
+      await clipboard.writeText(address);
+      if (!disposed && open && attempt === copyAttempt) showEmailStatus('Email copied');
+    } catch {
+      if (!disposed && open && attempt === copyAttempt) showEmailStatus(`Couldn’t copy. Email: ${address}`);
+    } finally {
+      if (attempt === copyAttempt) {
+        copying = false;
+        emailButton.removeAttribute('aria-busy');
+      }
+    }
+  }
+
   function close({ restore = true, focus = true } = {}) {
+    resetEmailCopy();
     if (!open) return;
     open = false;
     if (timer !== null) host.clearTimeout(timer);
@@ -50,6 +83,7 @@ export function createLandingInterface({ flow, face, reduce = false, host = wind
     if (disposed || toggle.disabled) return;
     if (open) { close(); return; }
     if (timer !== null) { host.clearTimeout(timer); timer = null; }
+    resetEmailCopy();
     fromArrival = flow.state.form === 'nebula' && flow.state.phase === 'arrival';
     open = true;
     explore.open = false;
@@ -73,6 +107,7 @@ export function createLandingInterface({ flow, face, reduce = false, host = wind
   };
   toggle.addEventListener('click', show);
   closeButton.addEventListener('click', dismiss);
+  emailButton.addEventListener('click', copyEmail);
   explore.addEventListener('toggle', exploreChanged);
   doc.addEventListener('keydown', keydown);
   doc.addEventListener('pointerdown', outside);
@@ -110,6 +145,7 @@ export function createLandingInterface({ flow, face, reduce = false, host = wind
     delete doc.body.dataset.creator;
     toggle.removeEventListener('click', show);
     closeButton.removeEventListener('click', dismiss);
+    emailButton.removeEventListener('click', copyEmail);
     explore.removeEventListener('toggle', exploreChanged);
     doc.removeEventListener('keydown', keydown);
     doc.removeEventListener('pointerdown', outside);
