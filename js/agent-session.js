@@ -56,6 +56,8 @@ export function createAgentSession({ voice, onReplyText = () => {}, onChange = (
     return clientPromise;
   }
   function closeResources(session) {
+    session.releaseInputTracks?.();
+    session.releaseInputTracks = null;
     session.streams.forEach(stream => stream.getTracks().forEach(track => track.stop()));
     session.socket?.close();
     const closeLeftovers = () => {
@@ -117,6 +119,27 @@ export function createAgentSession({ voice, onReplyText = () => {}, onChange = (
       const { message, kind } = errorDetails(error, context);
       stopSession(session, message, kind);
     };
+    const observeInput = input => {
+      session.releaseInputTracks?.();
+      session.releaseInputTracks = null;
+      const stream = input.inputStream;
+      session.streams.add(stream);
+      if (!active()) {
+        // A permission reset may finish after End, outside the initial setup guard.
+        stream.getTracks().forEach(track => track.stop());
+        return;
+      }
+      const tracks = stream.getAudioTracks();
+      const ended = () => {
+        if (input.inputStream === stream) fail({ name: 'NotReadableError' });
+      };
+      session.releaseInputTracks = () => tracks.forEach(track => track.removeEventListener('ended', ended));
+      tracks.forEach(track => {
+        track.enabled = !session.micMuted;
+        track.addEventListener('ended', ended);
+      });
+      if (!tracks.length || tracks.some(track => track.readyState === 'ended')) ended();
+    };
     session.timer = setTimeout(() => fail({ code: 'TIMEOUT' }), connectionTimeoutMs);
     const setup = (async () => {
       try {
@@ -135,6 +158,20 @@ export function createAgentSession({ voice, onReplyText = () => {}, onChange = (
             conversation.setVolume({ volume: 0 });
             conversation.output.audioElement.muted = true;
             if (active()) {
+              // Observe the SDK's actual input, not its deliberately stopped
+              // preliminary permission stream. Ownership stays with this session.
+              const input = conversation.input, setDevice = input.setDevice;
+              if (setDevice) {
+                // Permission changes can replace capture without a new conversation.
+                // Keep this guard on the closed input so late resets cannot reopen it.
+                input.setDevice = async function (...args) {
+                  if (!active()) return;
+                  try { return await setDevice.apply(this, args); }
+                  finally { observeInput(input); }
+                };
+              }
+              observeInput(input);
+              if (!active()) return;
               conversation.setMicMuted(state.micMuted);
               session.releaseOutput();
             } else closeResources(session);

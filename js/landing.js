@@ -7,10 +7,14 @@ const FORM_LABELS = {
   lotus: { name: 'Celestial Lotus', description: 'a celestial lotus' }
 };
 
-// Legacy studies own their own stage. Route before loading the landing engine.
-const redirect = resolveLandingRoute(window.location.href);
-if (redirect) window.location.replace(redirect);
-else startLanding();
+// Take over the initial script deadline before starting the bounded loaders.
+// A late module must not replace an already-visible reload fallback.
+if (window.seniStartup?.claim() !== false) {
+  // Legacy studies own their own stage. Route before loading the landing engine.
+  const redirect = resolveLandingRoute(window.location.href);
+  if (redirect) window.location.replace(redirect);
+  else startLanding();
+}
 
 async function startLanding() {
   const el = Object.fromEntries(['stage', 'meet', 'meet-label', 'arrival', 'entry-hint', 'entry-error',

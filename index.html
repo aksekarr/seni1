@@ -13,7 +13,7 @@
     "three": "./js/vendor/three.module.js",
     "three/addons/": "./js/vendor/addons/",
     "./js/agent-config.js": "./js/agent-config.js?v=20261011-pages-release",
-    "./js/agent-session.js": "./js/agent-session.js?v=20261012-microphone-permissions",
+    "./js/agent-session.js": "./js/agent-session.js?v=20261012-microphone-recovery",
     "./js/facemap.js": "./js/facemap.js?v=20261010-recovery",
     "./js/face.js": "./js/face.js?v=20261011-interface",
     "./js/face-expressions.js": "./js/face-expressions.js?v=20261011-spatial-accents",
@@ -29,7 +29,6 @@
   }
 }
   </script>
-  <script type="module" src="./js/landing.js?v=20261011-creator-clearance"></script>
 </head>
 <body data-phase="booting">
   <canvas id="stage" aria-label="A living nebula of light, becoming Seni's face"></canvas>
@@ -140,5 +139,43 @@
     <p class="sr-only" id="status" role="status" aria-live="polite">Preparing Seni.</p>
   </footer>
   <noscript><p class="no-script">Seni needs JavaScript to bring her particles to life.</p></noscript>
+  <script id="landing-bootstrap">
+    // This fallback must work even when the entry module's own imports fail.
+    (() => {
+      let settled = false;
+      const entry = document.getElementById('meet');
+      const cleanup = () => {
+        clearTimeout(timer);
+        document.removeEventListener('error', resourceFailed, true);
+      };
+      const fail = () => {
+        if (settled) return;
+        settled = true;
+        cleanup();
+        const message = 'Seni could not load. Please try again.';
+        document.body.dataset.phase = 'error';
+        document.getElementById('meet-label').textContent = 'Try again';
+        entry.disabled = false;
+        entry.onclick = () => window.location.reload();
+        document.getElementById('entry-hint').hidden = true;
+        const error = document.getElementById('entry-error');
+        error.textContent = message;
+        error.hidden = false;
+        document.getElementById('status').textContent = message;
+      };
+      const resourceFailed = event => { if (event.target?.id === 'landing-entry') fail(); };
+      const timer = setTimeout(fail, 15000);
+      document.addEventListener('error', resourceFailed, true);
+      window.seniStartup = {
+        claim() {
+          if (settled) return false;
+          settled = true;
+          cleanup();
+          return true;
+        }
+      };
+    })();
+  </script>
+  <script id="landing-entry" type="module" src="./js/landing.js?v=20261012-startup-recovery"></script>
 </body>
 </html>
